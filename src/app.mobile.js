@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { VelocityTransitionGroup } from 'velocity-react';
 import { createHashHistory }  from 'history';
 
-import signal from './signal/signal';
+// import signal from './signal/signal';
 import HeaderMobile from './components/header/header-mobile';
 import Home from './components/home/home';
 import Page1 from './components/page1/page1';
@@ -39,8 +39,8 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		signal.setDevice('mobile');
-		signal.setUrl(this.props.location.pathname);
+		// signal.setDevice('mobile');
+		// signal.setUrl(this.props.location.pathname);
 	}
 
 	render() {

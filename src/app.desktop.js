@@ -6,10 +6,13 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { VelocityTransitionGroup } from 'velocity-react';
 import { createHashHistory }  from 'history';
 
-import signal from './signal/signal';
+// import signal from './signal/signal';
 import HeaderDesktop from './components/header/header-desktop';
 import Home from './components/home/home';
 import Page1 from './components/page1/page1';
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 class App extends Component {
 	constructor() {
@@ -33,14 +36,14 @@ class App extends Component {
 	      translateY: ['5%', 0]
 	    },
 	    begin: () => {
-	    	signal.setUrl(this.props.location.pathname);
+	    	// signal.setUrl(this.props.location.pathname);
 	    }
 	  };
 	}
 
 	componentDidMount() {
-		signal.setDevice('desktop');
-		signal.setUrl(this.props.location.pathname);
+		// signal.setDevice('desktop');
+		// signal.setUrl(this.props.location.pathname);
 	}
 
 	render() {
@@ -56,10 +59,12 @@ class App extends Component {
 };
 
 ReactDOM.render((
-	<Router history={createHashHistory()}>
-    <Route path='/' component={App}>
-      <IndexRoute component={Home} />
-      <Route path='page1' component={Page1} />
-    </Route>
-  </Router>
+	<Provider store={store}>
+		<Router history={createHashHistory()}>
+	    <Route path='/' component={App}>
+	      <IndexRoute component={Home} />
+	      <Route path='page1' component={Page1} />
+	    </Route>
+	  </Router>
+  </Provider>
 ), document.getElementById('app'));

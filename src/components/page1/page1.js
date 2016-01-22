@@ -1,24 +1,28 @@
 import './page1.scss';
 
 import React, { Component } from 'react';
-import signal from '../../signal/signal';
+// import signal from '../../signal/signal';
 
 export default class Page1 extends Component {
 	constructor() {
 		super();
-		this.state = signal.state;
-		this.setCount = (count) => this.setState({ count });
-		this.setPage1Word = (page1Word) => this.setState({ page1Word });
+		this.state = {
+			count: 1,
+			page1Word: 'hi',
+		};
+		// this.state = signal.state;
+		// this.setCount = (count) => this.setState({ count });
+		// this.setPage1Word = (page1Word) => this.setState({ page1Word });
 	}
 
 	componentDidMount() {
-		signal.event.count.add(this.setCount);
-		signal.event.page1Word.add(this.setPage1Word);
+		// signal.event.count.add(this.setCount);
+		// signal.event.page1Word.add(this.setPage1Word);
 	}
 
 	componentWillUnmount() {
-		signal.event.count.remove(this.setCount);
-		signal.event.page1Word.remove(this.setPage1Word);
+		// signal.event.count.remove(this.setCount);
+		// signal.event.page1Word.remove(this.setPage1Word);
 	}
 
 	render() {
@@ -28,10 +32,10 @@ export default class Page1 extends Component {
 				<p>This is page 1</p>
 				<h1>Page 1 Counter</h1>
 				<p>{this.state.count}</p>
-				<button onClick={() => signal.incrementCount()}>+</button>
-				<button onClick={() => signal.decrementCount()}>-</button>
+				<button onClick=''>+</button>
+				<button onClick=''>-</button>
 				<h1>Justin is... <i>{this.state.page1Word}</i></h1>
-				<button onClick={() => signal.togglePage1Word()}>toggle</button>
+				<button onClick=''>toggle</button>
 			</div>
 		);
 	}
