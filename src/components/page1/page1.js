@@ -1,7 +1,6 @@
 import './page1.scss';
 
 import React, { Component } from 'react';
-// import signal from '../../signal/signal';
 
 export default class Page1 extends Component {
 	constructor() {
@@ -10,19 +9,6 @@ export default class Page1 extends Component {
 			count: 1,
 			page1Word: 'hi',
 		};
-		// this.state = signal.state;
-		// this.setCount = (count) => this.setState({ count });
-		// this.setPage1Word = (page1Word) => this.setState({ page1Word });
-	}
-
-	componentDidMount() {
-		// signal.event.count.add(this.setCount);
-		// signal.event.page1Word.add(this.setPage1Word);
-	}
-
-	componentWillUnmount() {
-		// signal.event.count.remove(this.setCount);
-		// signal.event.page1Word.remove(this.setPage1Word);
 	}
 
 	render() {

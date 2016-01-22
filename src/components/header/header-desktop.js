@@ -2,7 +2,6 @@ import './header-desktop.scss';
 
 import React from 'react';
 import Header from './header';
-// import signal from '../../signal/signal';
 
 export default class HeaderDesktop extends Header {
 	constructor() {
@@ -11,19 +10,8 @@ export default class HeaderDesktop extends Header {
 			url: '/',
 			count: 1
 		};
-		// this.setCount = (count) => this.setState({ count });
 	}
-
-	componentDidMount() {
-		super.componentDidMount();
-		// signal.event.count.add(this.setCount);
-	}
-
-	componentWillUnmount() {
-		super.componentWillUnmount();
-		// signal.event.count.remove(this.setCount);
-	}
-
+	
 	render() {
 		return (
 			<div className='header desktop'>

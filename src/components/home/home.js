@@ -1,7 +1,6 @@
 import './home.scss';
 
 import React, { Component } from 'react';
-// import signal from '../../signal/signal';
 import { connect } from 'react-redux';
 import { increaseAction } from '../../redux/action';
 
