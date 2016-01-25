@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { device, url, count } from './reducer-global';
+import { device, count } from './reducer-global';
 import { page1Word } from './reducer-page1';
 import { syncHistory, routeReducer } from 'react-router-redux';
 import { browserHistory } from 'react-router';

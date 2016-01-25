@@ -3,7 +3,7 @@ export const setDevice = (device) => {
 		type: 'setDevice',
 		device
 	};
-}
+};
 
 export const increaseCount = { 
 	type: 'increaseCount' 

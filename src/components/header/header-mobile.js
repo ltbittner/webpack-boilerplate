@@ -20,14 +20,15 @@ class HeaderMobile extends Header {
 
 export default connect(
 	(state) => {
-		return { 
+		return {
+			url: state.routing.location.pathname,
 			count: state.count
-		} 
+		};
 	},
 	(dispatch) => {
 		return {
 			goToHome: () => dispatch(routeActions.push('/')),
 			goToPage1: () => dispatch(routeActions.push('/page1'))
-		}
+		};
 	}
-)(HeaderMobile)
+)(HeaderMobile);

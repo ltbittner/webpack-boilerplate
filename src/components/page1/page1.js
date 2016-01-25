@@ -37,13 +37,13 @@ export default connect(
 			device: state.device,
 			count: state.count,
 			page1Word: state.page1Word
-		} 
+		};
 	},
 	(dispatch) => {
 		return {
 			increaseCount: () => dispatch(global.increaseCount),
 			decreaseCount: () => dispatch(global.decreaseCount),
 			togglePage1Word: () => dispatch(page1.togglePage1Word)
-		}
+		};
 	}
-)(Page1)
+)(Page1);

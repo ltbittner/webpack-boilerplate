@@ -1,1 +1,3 @@
-export const togglePage1Word = { type: 'togglePage1Word' };
+export const togglePage1Word = { 
+	type: 'togglePage1Word' 
+};

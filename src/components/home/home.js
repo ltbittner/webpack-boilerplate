@@ -35,12 +35,12 @@ export default connect(
 			url: state.routing.location.pathname,
 			device: state.device,
 			count: state.count
-		} 
+		};
 	},
 	(dispatch) => {
 		return {
 			increaseCount: () => dispatch(global.increaseCount),
 			decreaseCount: () => dispatch(global.decreaseCount)
-		}
+		};
 	}
-)(Home)
+)(Home);
