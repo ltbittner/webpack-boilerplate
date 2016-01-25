@@ -2,35 +2,45 @@ import './home.scss';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { increaseAction } from '../../redux/action';
+import * as global from '../../redux/action-global';
 
 class Home extends Component {
 	render() {
-		const { value, onIncreaseClick } = this.props;
 		return (
 			<div className='content home'>
 				<h1>Home page</h1>
 				<p>This is a home page</p>
 				<img className='logo' src={require('../../assets/logo_tb.png')} />
-				<h1>Home Counter</h1>
-				<p>{value}</p>
-				<button onClick={onIncreaseClick}>+</button>
-				<button onClick=''>-</button>
+				<br />
+				<br />
+				<h1>Global Counter</h1>
+				<p>{this.props.count}</p>
+				<button onClick={this.props.increaseCount}>+</button>
+				<button onClick={this.props.decreaseCount}>-</button>
+				<br />
+				<br />
+				<h1>Device</h1>
+				<p>{this.props.device}</p>
+				<br />
+				<h1>Url</h1>
+				<p>{this.props.url}</p>
 			</div>
 		);
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		value: state.count
+export default connect(
+	(state) => {
+		return {
+			url: state.routing.location.pathname,
+			device: state.device,
+			count: state.count
+		} 
+	},
+	(dispatch) => {
+		return {
+			increaseCount: () => dispatch(global.increaseCount),
+			decreaseCount: () => dispatch(global.decreaseCount)
+		}
 	}
-}
-
-function mapDispatchToProps(dispatch) {
-	return {
-		onIncreaseClick: () => dispatch(increaseAction)
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+)(Home)

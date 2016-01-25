@@ -2,17 +2,17 @@ import './app.scss';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { VelocityTransitionGroup } from 'velocity-react';
 import { createHashHistory }  from 'history';
 
-// import signal from './signal/signal';
 import HeaderDesktop from './components/header/header-desktop';
 import Home from './components/home/home';
 import Page1 from './components/page1/page1';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { setDevice } from './redux/action-global';
 
 class App extends Component {
 	constructor() {
@@ -34,16 +34,10 @@ class App extends Component {
 	    animation: {
 	      opacity: [0, 1],
 	      translateY: ['5%', 0]
-	    },
-	    begin: () => {
-	    	// signal.setUrl(this.props.location.pathname);
 	    }
 	  };
-	}
 
-	componentDidMount() {
-		// signal.setDevice('desktop');
-		// signal.setUrl(this.props.location.pathname);
+	  store.dispatch(setDevice('desktop'));
 	}
 
 	render() {
@@ -60,7 +54,7 @@ class App extends Component {
 
 ReactDOM.render((
 	<Provider store={store}>
-		<Router history={createHashHistory()}>
+		<Router history={browserHistory}>
 	    <Route path='/' component={App}>
 	      <IndexRoute component={Home} />
 	      <Route path='page1' component={Page1} />
