@@ -1,7 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -33,13 +32,7 @@ module.exports = {
         removeComments: true,
         collapseWhitespace: true
       }
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: path.join(__dirname, '/src/files'),
-        to: '/'
-      }
-    ])
+    })
   ],
   module: {
     loaders: [

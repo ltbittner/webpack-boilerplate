@@ -1,8 +1,9 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { browserHistory } from 'react-router';
+import { syncHistory, routeReducer } from 'react-router-redux';
+
 import { device, count } from './reducer-global';
 import { page1Word } from './reducer-page1';
-import { syncHistory, routeReducer } from 'react-router-redux';
-import { browserHistory } from 'react-router';
 
 const reducer = combineReducers({
 	routing: routeReducer,
