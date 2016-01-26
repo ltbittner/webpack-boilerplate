@@ -21,8 +21,7 @@ class HeaderMobile extends Header {
 export default connect(
 	(state) => {
 		return {
-			url: state.routing.location.pathname,
-			count: state.count
+			url: state.routing.location.pathname
 		};
 	},
 	(dispatch) => {
