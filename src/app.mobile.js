@@ -10,7 +10,7 @@ import Home from './components/home/home';
 import Page1 from './components/page1/page1';
 
 import { Provider } from 'react-redux';
-import { setDevice } from './redux/action-global';
+import { setDevice } from './redux/actions/action-global';
 import store from './redux/store';
 
 class App extends Component {

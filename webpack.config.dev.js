@@ -21,6 +21,7 @@ module.exports = {
     publicPath: '/' // path that will be considered when importing files
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({

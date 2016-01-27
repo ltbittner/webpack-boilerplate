@@ -1,25 +1,26 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistory, routeReducer } from 'react-router-redux';
-import * as reducerGlobal from './reducer-global';
-import * as reducerPage1 from './reducer-page1';
+import { syncHistory } from 'react-router-redux';
+import reducer from './reducers/index';
 
-const reducer = combineReducers(Object.assign({}, 
-	reducerGlobal,
-	reducerPage1,
-	{ routing: routeReducer }
-));
+const configureStore = (initialState) => {
+	const reduxRouterMiddleware = syncHistory(browserHistory);
+	const createDevStore = compose(applyMiddleware(reduxRouterMiddleware), typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : (f) => f)(createStore);
+	const createProdStore = applyMiddleware(reduxRouterMiddleware)(createStore);
 
-const reduxRouterMiddleware = syncHistory(browserHistory);
-const createDevStore = compose(applyMiddleware(reduxRouterMiddleware), typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : (f) => f)(createStore);
-const createProdStore = applyMiddleware(reduxRouterMiddleware)(createStore);
+	let store;
+	if(process.env.NODE_ENV == 'development') {
+		store = createDevStore(reducer, initialState);
+		if(module.hot) {
+	    module.hot.accept('./reducers', () => {
+	      store.replaceReducer(require('./reducers/index').default);
+	    });
+	  }
+	} else {
+		store = createProdStore(reducer, initialState);
+	}
+	reduxRouterMiddleware.listenForReplays(store);
+	return store;
+};
 
-let store;
-if(process.env.NODE_ENV == 'development') {
-	store = createDevStore(reducer);
-} else {
-	store = createProdStore(reducer);
-}
-
-reduxRouterMiddleware.listenForReplays(store);
-export default store;
+export default configureStore();

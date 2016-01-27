@@ -32,5 +32,5 @@ app.listen(3000, '0.0.0.0', function(err) {
     return;
   }
 
-  console.log('Listening at http://0.0.0.0:3000');
+  console.log('Listening at http://localhost:3000');
 });

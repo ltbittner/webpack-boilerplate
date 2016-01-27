@@ -2,7 +2,7 @@ import './home.scss';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as global from '../../redux/action-global';
+import * as global from '../../redux/actions/action-global';
 
 class Home extends Component {
 	render() {
@@ -13,7 +13,7 @@ class Home extends Component {
 				<img className='logo' src={require('../../assets/logo_tb.png')} />
 				<br />
 				<br />
-				<h1>Global Counter</h1>
+				<h1>Global Counter at Home</h1>
 				<p>{this.props.count}</p>
 				<button onClick={this.props.increaseCount}>+</button>
 				<button onClick={this.props.decreaseCount}>-</button>
@@ -39,8 +39,8 @@ export default connect(
 	},
 	(dispatch) => {
 		return {
-			increaseCount: () => dispatch(global.increaseCount),
-			decreaseCount: () => dispatch(global.decreaseCount)
+			increaseCount: () => dispatch(global.increaseCount()),
+			decreaseCount: () => dispatch(global.decreaseCount())
 		};
 	}
 )(Home);

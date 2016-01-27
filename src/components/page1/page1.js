@@ -2,8 +2,8 @@ import './page1.scss';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as global from '../../redux/action-global';
-import * as page1 from '../../redux/action-page1';
+import * as global from '../../redux/actions/action-global';
+import * as page1 from '../../redux/actions/action-page1';
 
 class Page1 extends Component {
 	render() {
@@ -12,7 +12,7 @@ class Page1 extends Component {
 				<h1>Page 1</h1>
 				<p>This is page 1</p>
 				<br />
-				<h1>Global Counter</h1>
+				<h1>Global Counter at Page 1</h1>
 				<p>{this.props.count}</p>
 				<button onClick={this.props.increaseCount}>+</button>
 				<button onClick={this.props.decreaseCount}>-</button>
@@ -41,9 +41,9 @@ export default connect(
 	},
 	(dispatch) => {
 		return {
-			increaseCount: () => dispatch(global.increaseCount),
-			decreaseCount: () => dispatch(global.decreaseCount),
-			togglePage1Word: () => dispatch(page1.togglePage1Word)
+			increaseCount: () => dispatch(global.increaseCount()),
+			decreaseCount: () => dispatch(global.decreaseCount()),
+			togglePage1Word: () => dispatch(page1.togglePage1Word())
 		};
 	}
 )(Page1);
