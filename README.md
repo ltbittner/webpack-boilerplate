@@ -4,7 +4,7 @@ This is a boilerplate that utilizes Webpack with React and Redux. The purpose is
 
 * Dev server with express (http://expressjs.com)
 * Hot module replacement with webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware)
-* Central & unidirectional data flow with react-redux (https://github.com/rackt/react-redux)
+* Data flow with react-redux (https://github.com/rackt/react-redux)
 * Routing with react-router-redux (https://github.com/rackt/react-router-redux)
 * Animation with velocity-react (https://github.com/twitter-fabric/velocity-react)
 * Device detection with mobile-detect (https://github.com/hgoebl/mobile-detect.js)
