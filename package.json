@@ -45,5 +45,11 @@
     "webpack": "^1.12.11",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0"
+  },
+  "dependencies": {
+    "brindille-preloader": "^1.0.4",
+    "pxloader": "^1.0.0",
+    "require-all": "^2.0.0",
+    "require-dir": "^0.3.0"
   }
 }

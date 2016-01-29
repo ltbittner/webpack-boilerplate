@@ -3,14 +3,30 @@ import './home.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as global from '../../redux/actions/action-global';
+import TBLoader from '../loader/loader';
+import '../../assets/logo_tb.png';
+import '../../assets/logo_tb1.png';
+import '../../assets/logo_tb2.png';
+import '../../assets/large.jpg';
 
 class Home extends Component {
+	constructor() {
+		super();
+		let loader = new TBLoader({
+			preload: ['/assets/logo_tb.png', '/assets/logo_tb1.png', '/assets/logo_tb2.png', '/assets/large.jpg'],
+			backgroundLoad: ['assets/logo_tb1.png', 'assets/logo_tb2.png']
+		});
+
+		loader.startLoad();
+	}
+
+
 	render() {
 		return (
 			<div className='content home'>
 				<h1>Home page</h1>
 				<p>This is a home page</p>
-				<img className='logo' src={require('../../assets/logo_tb.png')} />
+				<img className='logo' src='/assets/logo_tb.png' />
 				<br />
 				<br />
 				<h1>Global Counter at Home</h1>
@@ -44,3 +60,6 @@ export default connect(
 		};
 	}
 )(Home);
+
+
+

@@ -33,8 +33,8 @@ module.exports = {
       { test: /\.jsx?/, loader: 'babel', include: path.join(__dirname, 'src') },
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.scss/, loader: 'style!css!sass' },
-      { test: /\.(png|jpg|woff|ttf)/, loader: 'url', query: { limit: '10000', name: '[name].[hash].[ext]' } },
-      { test: /\.(svg|mp4|webm)/, loader: 'file', query: { limit: '10000', name: '[name].[hash].[ext]' } }
+      { test: /\.(png|jpg|woff|ttf)/, loader: 'url', query: { limit: '10000', name: 'assets/[name].[ext]' } },
+      { test: /\.(svg|mp4|webm)/, loader: 'file', query: { limit: '10000', name: 'assets/[name].[ext]' } }
     ]
   }
 };

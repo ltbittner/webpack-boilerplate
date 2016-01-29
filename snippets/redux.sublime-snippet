@@ -1,0 +1,31 @@
+<snippet>
+  <content><![CDATA[
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+class $1 extends Component {
+  render() {
+    return (
+      <div className='$1-component'>
+
+      </div>
+    );
+  }
+}
+
+export default connect(
+  (state) => {
+    return {
+      //url: state.routing.location.pathname,
+    };
+  },
+  (dispatch) => {
+    return {
+      //increaseCount: () => dispatch(global.increaseCount()),
+    };
+  }
+)($1);
+]]></content>
+
+  <tabTrigger>class</tabTrigger>
+</snippet>
