@@ -1,4 +1,4 @@
-# Webpack Boilerplate v2.0.0
+# Webpack Boilerplate v2.1.0
 
 This is a boilerplate that utilizes Webpack with React and Redux. The purpose is to have a light base template that has only necessary modules. The modules included in this boilerplate are:
 
