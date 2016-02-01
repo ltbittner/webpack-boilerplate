@@ -10,7 +10,8 @@ class Home extends Component {
 			<div className='content home'>
 				<h1>Home page</h1>
 				<p>This is a home page</p>
-				<img className='logo' src={require('../../assets/logo_tb.png')} />
+				<img className='logo' src='assets/logo_tb.png' />
+				<div className='logo'></div>
 				<br />
 				<br />
 				<h1>Global Counter at Home</h1>
