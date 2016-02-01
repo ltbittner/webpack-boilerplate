@@ -4,17 +4,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as global from '../../redux/actions/action-global';
 import TBLoader from '../loader/loader';
-import '../../assets/logo_tb.png';
-import '../../assets/logo_tb1.png';
-import '../../assets/logo_tb2.png';
-import '../../assets/large.jpg';
+
 
 class Home extends Component {
 	constructor() {
 		super();
+
+
 		let loader = new TBLoader({
 			preload: ['/assets/logo_tb.png', '/assets/logo_tb1.png', '/assets/logo_tb2.png', '/assets/large.jpg'],
-			backgroundLoad: ['assets/logo_tb1.png', 'assets/logo_tb2.png']
+			backgroundLoad: ['/assets/logo_tb3.png', '/assets/logo_tb4.png', '/assets/home_video.mp4'],
+			preloadProgressCallback: (e) => {  console.log("PRELOAD PROGRESS: " + e.percentage);  },
+			preloadCompletedCallback: () => {  console.log("PRELOAD COMPLETED");  },
+			backgroundProgressCallback: (e) => {  console.log("BACKGROUND PROGRESS: " + e.percentage);  },
+			backgroundCompletedCallback: () => {  console.log("BACKGROUND COMPLETED");  },
+			autoStartBackgroundLoad: true, 
 		});
 
 		loader.startLoad();

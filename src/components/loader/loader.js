@@ -11,19 +11,18 @@ class TBLoader {
 
     this.totalNumberOfPreloadAssets = 0;
     this.numberOfPreloadedAssets = 0;
+
+    this.totalNumberOfBackgroundAssets = 0;
+    this.numberOfBackgroundAssets = 0;
     
-    this.preloadedAssets = {
-      images: [],
-      videos: []
-    };
-
-    this.loadRestInBackground = false || args.loadRestInBackground;
-
     this.preloadProgressCallback = args.preloadProgressCallback || null;
     this.preloadCompletedCallback = args.preloadCompletedCallback || null;
-    this.autoStartBackgroundLoad = true || args.autoStartBackgroundLoad;
 
-    
+    this.backgroundProgressCallback = args.backgroundProgressCallback || null;
+    this.backgroundCompletedCallback = args.backgroundCompletedCallback || null;
+
+    this.autoStartBackgroundLoad = false || args.autoStartBackgroundLoad;
+
     if(args.preload){
       this.initializePreloadQueue(args.preload);
     }
@@ -36,10 +35,8 @@ class TBLoader {
   }
 
   startLoad() {
-    console.log('start');
     if(this.preloadQueue){
-      window.setTimeout(this.startPreload.bind(this), 100);
-      //this.startPreload();
+      this.startPreload();
     }
   }
 
@@ -47,6 +44,7 @@ class TBLoader {
     if(args == null || !args){
       return;
     }
+
     this.preloadQueue = [];
     for(let asset of args) {
       if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(asset)) {
@@ -54,14 +52,15 @@ class TBLoader {
           type: 'image',
           src: asset,
         });
-       
+      } else if((/\.(mp4|webm)$/i).test(asset)) {
+        this.preloadQueue.push({
+          type: 'video',
+          src: asset
+        });
       }
 
       this.totalNumberOfPreloadAssets++;
-      
     }
-    
-    console.log('initializePreloadQueue');
   }
 
   initializeBackgroundQueue(args) {
@@ -71,44 +70,76 @@ class TBLoader {
     }
 
     this.backgroundQueue = [];
+    for(let asset of args) {
+      if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(asset)) {
+        this.backgroundQueue.push({
+          type: 'image',
+          src: asset,
+        });
+      } else if((/\.(mp4|webm)$/i).test(asset)) {
+        this.backgroundQueue.push({
+          type: 'video',
+          src: asset
+        });
+      }
 
-    if(this.loadRestInBackground) {
-      //TODO
-    } else {
-      
+      this.totalNumberOfBackgroundAssets++;
     }
-
-    console.log('initializeBackgroundQueue');
   }
 
   startPreload() {
     for(let asset of this.preloadQueue) {
-      if(asset.type == 'image') {
-        var image = new Image();
-        image.onload = this.preloadProgressHandler.bind(this);
-        //image.addEventListener("load", this.preloadProgressHandler.bind(this), false);
-        image.addEventListener("error", this.errorHandler.bind(this), false);
-        //image.src = require(asset.src);
-        image.src = asset.src + "?_=" + (new Date().getTime());
-        this.preloadedAssets.images.push(image);
-      }
+      var t = this.preloadAsset(asset.src, asset.type);
+      t.then(() => {
+        this.preloadProgressHandler();
+      })
+      .catch(() => {
+        this.errorHandler();
+      });
     }
   }
 
   startBackgroundLoad() {
-
+    for(let asset of this.backgroundQueue) {
+      var t = this.preloadAsset(asset.src, asset.type);
+      t.then(() => {
+        this.backgroundProgressHandler();
+      })
+      .catch((e) => {
+        console.log(e);
+        this.errorHandler();
+      });
+    }
   }
 
+  preloadAsset(path, type) {
+    return new Promise((resolve, reject) => {
+        let asset;
+        if(type == 'image') {
+          asset = new Image();
+        } else if(type == 'video') {
+          asset = document.createElement('video');
+          asset.addEventListener('suspend', resolve);
+        }
+
+        asset.onload = resolve;
+        asset.onerror = reject;
+        asset.src = path + "?_=" + (new Date().getTime());
+        if(type == 'video') {
+          asset.load();
+        }
+    });
+  }
+
+
   preloadProgressHandler() {
-    console.log("preloadProgressHandler");
     this.numberOfPreloadedAssets++;
  
-    
     if(this.preloadProgressCallback) {
       let data = {
         completed: this.numberOfPreloadedAssets,
         total: this.totalNumberOfPreloadAssets,
-        percentage: ((this.numberOfPreloadedAssets / this.totalNumberOfPreloadAssets) * 100)
+        percentage: Math.round(((this.numberOfPreloadedAssets / this.totalNumberOfPreloadAssets) * 100))
       };
 
       this.preloadProgressCallback(data);
@@ -116,20 +147,54 @@ class TBLoader {
     
 
     if(this.numberOfPreloadedAssets == this.totalNumberOfPreloadAssets) {
-
+      this.preloadCompletedHandler();
     }
   }
 
   backgroundProgressHandler(progress) {
+    this.numberOfBackgroundAssets++;
+ 
+    if(this.backgroundProgressCallback) {
+      let data = {
+        completed: this.numberOfBackgroundAssets,
+        total: this.totalNumberOfBackgroundAssets,
+        percentage: Math.round(((this.numberOfBackgroundAssets / this.totalNumberOfBackgroundAssets) * 100))
+      };
 
+      this.backgroundProgressCallback(data);
+    }
+    
+
+    if(this.numberOfBackgroundAssets == this.totalNumberOfBackgroundAssets) {
+      this.backgroundCompletedHandler();
+    }
   }
 
   preloadCompletedHandler() {
+    if(this.preloadCompletedCallback) {
+      this.preloadCompletedCallback();
+    }
+
+    if(this.autoStartBackgroundLoad) {
+      this.startBackgroundLoad();
+    }
 
   }
 
   backgroundCompletedHandler() {
+    if(this.backgroundCompletedCallback) {
+      this.backgroundCompletedCallback();
+    }
 
+    this.resetAllCallbacks();
+  }
+
+  resetAllCallbacks() {
+    this.preloadProgressCallback =  null;
+    this.preloadCompletedCallback =  null;
+
+    this.backgroundProgressCallback = null;
+    this.backgroundCompletedCallback = null;
   }
 
   errorHandler() {
